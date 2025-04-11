@@ -1,0 +1,9 @@
+# Ignore R history and data files
+.RData
+.Rhistory
+
+# Ignore temporary or system files
+*.pyc
+__pycache__/
+.DS_Store
+

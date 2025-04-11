@@ -1,0 +1,29 @@
+$TOOLS/knock.sh (AlghurPU26-)
+ssh pospisil@aurum
+tmux
+
+	# batch
+sbatch --time=4:00:00 --partition=b64_any --mem=128G script.sh $(pwd)
+	# interactive
+srun --time=4:00:00 --partition=b64_any --mem=128G --pty bash
+			 	a36_any
+squeue -u pospisil
+scancel -u pospisil
+
+	1.	
+mkdir project/sra_dir
+mkdir project/raw_data
+mkdir project/raw_data_qc
+mkdir project/raw_data_trim
+	# update srrs_to_skip
+fetch_srr.sh <project_dir> <accession>
+
+	2.	
+	# single/paired
+sbatch --time=4:00:00 --partition=b64_any --mem=128G trim_.sh <project_dir>
+sbatch --time=4:00:00 --partition=b64_any --mem=128G map_.sh <project_dir> <gendir>
+sbatch --time=4:00:00 --partition=b64_any --mem=128G count_.sh <project_dir> <gendir>	
+
+	3.
+scp pospisil@147.231.129.60:/home2/pospisil/projects/ / /featurecounts_all.txt .
+
